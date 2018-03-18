@@ -23,7 +23,7 @@ class TeStTheme
         wp_enqueue_style(
             'TeStTheme-stylesheet',
             get_stylesheet_uri(),
-            [],
+            ['bootstrap'],
             self::$version
         );
 
