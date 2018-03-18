@@ -18,6 +18,7 @@ class TeStTheme
         add_action('wp_head', [__CLASS__, 'add_viewport']);
         add_action('init', [__CLASS__, 'post_type_books']);
         add_action('wp', [__CLASS__, 'ajax_form']);
+
     }
 
     public static function post_type_books()
@@ -58,7 +59,6 @@ class TeStTheme
 
     }
 
-
     public static function pre_get_posts($query)
     {
         if ($query->is_front_page() && $query->is_main_query()) {
@@ -97,7 +97,7 @@ class TeStTheme
         $request = array_map('trim', $request);
         unset($request['action']);
 
-        $request = array_filter($request, function ($elem){
+        $request = array_filter($request, function ($elem) {
             return !empty($elem);
         });
 
@@ -116,8 +116,28 @@ class TeStTheme
             wp_send_json_error(self::ajax_insert_posts_alerts_helper($out, 'warning'));
         }
 
+        $post_id = self::insert_book($request['title'], $request['description']);
+
+        if (is_wp_error($post_id)) {
+            $out['message'] = __('An error occurred while saving. Please try again later.', 'TeStTheme');
+            wp_send_json_error(self::ajax_insert_posts_alerts_helper($out, 'danger'));
+        }
 
         wp_send_json_success(self::ajax_insert_posts_alerts_helper($out, 'success'));
+
+    }
+
+    public static function insert_book($title, $excerpt)
+    {
+        $data = [
+            'post_title' => wp_strip_all_tags($title),
+            'post_excerpt' => wp_strip_all_tags($excerpt),
+            'post_status' => 'draft',
+            'post_author' => get_current_user_id()
+        ];
+
+        return wp_insert_post($data, true);
+
 
     }
 
@@ -136,47 +156,48 @@ class TeStTheme
     public static function ajax_form()
     {
 
-        wp_enqueue_script(
-            'TeStTheme-ajax-insert-form',
-            get_template_directory_uri() . '/js/form-script.min.js',
-            ['jquery'],
-            self::$version,
-            true
-        );
+        if (is_user_logged_in()) {
+            wp_enqueue_script(
+                'TeStTheme-ajax-insert-form',
+                get_template_directory_uri() . '/js/form-script.min.js',
+                ['jquery'],
+                self::$version,
+                true
+            );
 
 
-        add_action('TeStTheme__theme-content-area-before', function () {
+            add_action('TeStTheme__theme-content-area-before', function () {
 
-            $action = add_query_arg(['action' => self::$ajax_action], admin_url('admin-ajax.php'));
+                $action = add_query_arg(['action' => self::$ajax_action], admin_url('admin-ajax.php'));
 
-            ?>
-            <form class="form__ajax-insert" action="<?php echo $action; ?>" method="post">
+                ?>
+                <form class="form__ajax-insert" action="<?php echo $action; ?>" method="post">
 
-                <div class="md-form">
-                    <label for="title">
-                        <?php _e('Title', 'TeStTheme'); ?>
-                        <input name="title" class="form-control" type="text"
-                               placeholder="<?php _e('Enter title', 'TeStTheme'); ?>"/>
-                    </label>
-                </div>
+                    <div class="md-form">
+                        <label for="title">
+                            <?php _e('Title', 'TeStTheme'); ?>
+                            <input name="title" class="form-control" type="text"
+                                   placeholder="<?php _e('Enter title', 'TeStTheme'); ?>"/>
+                        </label>
+                    </div>
 
-                <div class="md-form">
-                    <label for="description">
-                        <?php _e('Description', 'TeStTheme'); ?>
-                        <textarea name="description" class="form-control md-textarea"></textarea>
-                    </label>
-                </div>
+                    <div class="md-form">
+                        <label for="description">
+                            <?php _e('Description', 'TeStTheme'); ?>
+                            <textarea name="description" class="form-control md-textarea"></textarea>
+                        </label>
+                    </div>
 
-                <button type="submit" class="btn btn-primary">
-                    <?php _e('Submit', 'TeStTheme'); ?>
-                </button>
+                    <button type="submit" class="btn btn-primary">
+                        <?php _e('Submit', 'TeStTheme'); ?>
+                    </button>
 
-            </form>
+                </form>
 
-            <?php
+                <?php
 
-        });
-
+            });
+        }
     }
 
 }
