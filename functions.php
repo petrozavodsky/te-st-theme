@@ -18,8 +18,16 @@ class TeStTheme
         add_action('wp_head', [__CLASS__, 'add_viewport']);
         add_action('init', [__CLASS__, 'post_type_books']);
         add_action('wp', [__CLASS__, 'ajax_form']);
-
         add_action('TeStTheme__theme-main-before', [__CLASS__, 'meta_description']);
+        add_action('TeStTheme__theme-register-link', function () {
+            if (!is_user_logged_in()) {
+                $url = site_url('/wp-login.php?action=register');
+                echo "<p>  <a href='{$url}'> " . __('To register on the site', 'TeStTheme') . " </a> </p>";
+            } else {
+                $url = wp_logout_url(site_url('/'));
+                echo "<p>  <a href='{$url}'> " . __('Logout', 'TeStTheme') . " </a> </p>";
+            }
+        });
     }
 
     public function meta_description()

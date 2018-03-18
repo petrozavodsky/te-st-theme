@@ -1,5 +1,5 @@
     <footer class="site__footer footer">
-        <p><?php _e('© Coppy', 'TeStTheme'); ?> </p>
+        <?php do_action('TeStTheme__theme-register-link');?>
     </footer>
 
 </div>
