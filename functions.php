@@ -36,7 +36,7 @@ class TeStTheme
 
     public static function theme_textdomain()
     {
-        load_theme_textdomain('TeStTheme');
+        load_theme_textdomain('TeStTheme',get_template_directory() . '/languages');
     }
 
 

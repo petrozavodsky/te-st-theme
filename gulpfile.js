@@ -10,16 +10,15 @@ const gulp = require('gulp'),
 
 
 gulp.task('i18n', function () {
-    return gulp.src(plugin_src.lang.src)
-        .pipe(plugins.sort())
-        .pipe(plugins.wpPot({
-            package: path.basename(__dirname)
-        }))
-        .pipe(plugins.rename({
-            basename: path.basename(__dirname),
-            extname: ".pot"
-        }))
-        .pipe(gulp.dest(plugin_src.lang.dest));
+    return gulp.src([
+        '*.php',
+        'templates/*.php',
+    ])
+        .pipe(plugins.wpPot( {
+            domain: 'TeStTheme',
+            package: 'te-st-theme'
+        } ))
+        .pipe(gulp.dest('languages/te-st-theme.pot'));
 
 });
 
