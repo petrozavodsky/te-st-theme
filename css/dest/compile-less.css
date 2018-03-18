@@ -10,6 +10,13 @@
 .site__main article .article__content {
   color: #777;
 }
+.form__ajax-insert {
+  width: 100%;
+  padding: 2rem 0;
+}
+.form__ajax-insert label {
+  width: 100%;
+}
 .site__footer {
   border-top: .05rem solid #e5e5e5;
   padding-top: 1.5rem;

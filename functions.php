@@ -104,7 +104,7 @@ class TeStTheme
         $action = add_query_arg(['action' => self::$ajax_action], admin_url('wp-admin.php'));
         ?>
 
-        <form class="form_main" action="<?php echo $action; ?>">
+        <form class="form__ajax-insert" action="<?php echo $action; ?>">
 
             <div class="md-form">
                 <label for="title">
