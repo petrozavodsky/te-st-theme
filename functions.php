@@ -19,6 +19,9 @@ class TeStTheme
         add_action('init', [__CLASS__, 'post_type_books']);
         add_action('wp', [__CLASS__, 'ajax_form']);
         add_action('TeStTheme__theme-main-before', [__CLASS__, 'meta_description']);
+        add_action('admin_init', [__CLASS__, 'user_restriction'], 1);
+        add_action('wp', [__CLASS__, 'hide_admin_bar']);
+
         add_action('TeStTheme__theme-register-link', function () {
             if (!is_user_logged_in()) {
                 $url = site_url('/wp-login.php?action=register');
@@ -28,6 +31,21 @@ class TeStTheme
                 echo "<p>  <a href='{$url}'> " . __('Logout', 'TeStTheme') . " </a> </p>";
             }
         });
+    }
+
+    public static function hide_admin_bar()
+    {
+        if (!current_user_can('unfiltered_html')) {
+            show_admin_bar(false);
+        }
+    }
+
+    public static function user_restriction()
+    {
+        if (!current_user_can('unfiltered_html')) {
+            wp_redirect(site_url('/'));
+            exit;
+        }
     }
 
     public function meta_description()
