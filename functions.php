@@ -113,7 +113,7 @@ class TeStTheme
 
         add_action('TeStTheme__theme-content-area-before', function () {
 
-            $action = add_query_arg(['action' => self::$ajax_action], admin_url('wp-admin.php'));
+            $action = add_query_arg(['action' => self::$ajax_action], admin_url('admin-ajax.php'));
 
             ?>
             <form class="form__ajax-insert" action="<?php echo $action; ?>" method="post">
