@@ -130,7 +130,7 @@ class TeStTheme
     public static function insert_book($title, $excerpt)
     {
         $data = [
-            'post_type'     => self::$post_type,
+            'post_type' => self::$post_type,
             'post_title' => wp_strip_all_tags($title),
             'post_excerpt' => wp_strip_all_tags($excerpt),
             'post_status' => 'draft',
@@ -189,9 +189,14 @@ class TeStTheme
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
-                        <?php _e('Submit', 'TeStTheme'); ?>
-                    </button>
+                    <div class="form__ajax-insert-button-wrap">
+                        <button type="submit" class="btn btn-primary">
+                            <?php _e('Submit', 'TeStTheme'); ?>
+                        </button>
+
+                        <div class="form__ajax-insert-button-preload loader"></div>
+
+                    </div>
 
                 </form>
 

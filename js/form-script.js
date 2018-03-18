@@ -25,17 +25,15 @@ jQuery(function ($) {
                         form_elem.find('.alert').slideUp(900, function () {
                            $(this).remove();
                         });
+                        form_elem.find('.loader').addClass('active');
                     },
                     success: function (json) {
-
-                        console.log(json);
-
                         form_elem.prepend(json.data.message);
                     },
                     complete: function (jqXHR, status) {
 
+                        form_elem.find('.loader').removeClass('active');
                     }
-
 
                 });
 

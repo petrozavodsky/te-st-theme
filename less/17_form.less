@@ -1,9 +1,33 @@
-.form__ajax-insert{
+.form__ajax-insert {
   width: 100%;
   padding: 2rem 0;
 
-  label{
+  label {
     width: 100%;
+  }
+
+  .form__ajax-insert-button-wrap {
+    width: 100%;
+
+    button {
+      float: left;
+    }
+
+    .form__ajax-insert-button-preload {
+      transition: opacity .3s ease;
+      opacity: 0;
+      background: transparent url("../images/preloader.gif") no-repeat center center /cover;
+      width: 38px;
+      height: 38px;
+      margin-left: .5rem;
+      float: left;
+
+      &.active {
+        opacity: 1;
+      }
+
+    }
+
   }
 
 }
