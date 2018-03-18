@@ -35,14 +35,15 @@ class TeStTheme
 
     public static function hide_admin_bar()
     {
-        if (!current_user_can('unfiltered_html')) {
+
+        if (true != DOING_AJAX && !current_user_can('unfiltered_html')) {
             show_admin_bar(false);
         }
     }
 
     public static function user_restriction()
     {
-        if (!current_user_can('unfiltered_html')) {
+        if (true != DOING_AJAX &&  !current_user_can('unfiltered_html')) {
             wp_redirect(site_url('/'));
             exit;
         }
@@ -200,7 +201,7 @@ class TeStTheme
         if (is_user_logged_in()) {
             wp_enqueue_script(
                 'TeStTheme-ajax-insert-form',
-                get_template_directory_uri() . '/js/form-script.min.js',
+                get_template_directory_uri() . '/js/form-script.js',
                 ['jquery'],
                 self::$version,
                 true
