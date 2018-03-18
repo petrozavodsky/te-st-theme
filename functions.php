@@ -17,7 +17,7 @@ class TeStTheme
         add_action('wp_enqueue_scripts', [__CLASS__, 'add_js_css']);
         add_action('wp_head', [__CLASS__, 'add_viewport']);
         add_action('init', [__CLASS__, 'post_type_books']);
-        add_action('TeStTheme__theme-content-area-before', [__CLASS__, 'ajax_form']);
+        add_action('wp', [__CLASS__, 'ajax_form']);
     }
 
     public static function post_type_books()
@@ -101,32 +101,48 @@ class TeStTheme
 
     public static function ajax_form()
     {
-        $action = add_query_arg(['action' => self::$ajax_action], admin_url('wp-admin.php'));
-        ?>
 
-        <form class="form__ajax-insert" action="<?php echo $action; ?>">
+        wp_enqueue_script(
+            'TeStTheme-ajax-insert-form',
+            get_template_directory_uri() . '/js/form-script.min.js',
+            ['jquery'],
+            self::$version,
+            true
+        );
 
-            <div class="md-form">
-                <label for="title">
-                    <?php _e('Title', 'TeStTheme'); ?>
-                    <input name="title" required="required" class="form-control" type="text" placeholder="<?php _e('Enter title', 'TeStTheme'); ?>"/>
-                </label>
-            </div>
 
-            <div class="md-form">
-                <label for="description">
-                    <?php _e('Description', 'TeStTheme'); ?>
-                    <textarea name="description" required="required" class="form-control md-textarea"></textarea>
-                </label>
-            </div>
+        add_action('TeStTheme__theme-content-area-before', function () {
 
-            <button type="submit" class="btn btn-primary">
-                <?php _e('Submit', 'TeStTheme'); ?>
-            </button>
+            $action = add_query_arg(['action' => self::$ajax_action], admin_url('wp-admin.php'));
 
-        </form>
+            ?>
+            <form class="form__ajax-insert" action="<?php echo $action; ?>" method="post">
 
-        <?php
+                <div class="md-form">
+                    <label for="title">
+                        <?php _e('Title', 'TeStTheme'); ?>
+                        <input name="title" required="required" class="form-control" type="text"
+                               placeholder="<?php _e('Enter title', 'TeStTheme'); ?>"/>
+                    </label>
+                </div>
+
+                <div class="md-form">
+                    <label for="description">
+                        <?php _e('Description', 'TeStTheme'); ?>
+                        <textarea name="description" required="required" class="form-control md-textarea"></textarea>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <?php _e('Submit', 'TeStTheme'); ?>
+                </button>
+
+            </form>
+
+            <?php
+
+        });
+
     }
 
 }
