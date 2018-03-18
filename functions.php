@@ -153,7 +153,7 @@ class TeStTheme
                 <div class="md-form">
                     <label for="title">
                         <?php _e('Title', 'TeStTheme'); ?>
-                        <input name="title" required="required" class="form-control" type="text"
+                        <input name="title" class="form-control" type="text"
                                placeholder="<?php _e('Enter title', 'TeStTheme'); ?>"/>
                     </label>
                 </div>
@@ -161,7 +161,7 @@ class TeStTheme
                 <div class="md-form">
                     <label for="description">
                         <?php _e('Description', 'TeStTheme'); ?>
-                        <textarea name="description" required="required" class="form-control md-textarea"></textarea>
+                        <textarea name="description" class="form-control md-textarea"></textarea>
                     </label>
                 </div>
 
