@@ -14,6 +14,11 @@ class TeStTheme
         do_action('TeStTheme_setup');
         add_action('wp_ajax_TeStTheme_insert_post', [__CLASS__, 'ajax_insert_posts']);
         add_action('wp_enqueue_scripts', [__CLASS__, 'add_js_css']);
+        add_action('wp_head' ,[__CLASS__, 'add_viewport']);
+    }
+
+    public static function add_viewport() {
+        echo "<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>\r\n";
     }
 
     public static function add_js_css()
