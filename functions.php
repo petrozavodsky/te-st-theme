@@ -130,6 +130,7 @@ class TeStTheme
     public static function insert_book($title, $excerpt)
     {
         $data = [
+            'post_type'     => self::$post_type,
             'post_title' => wp_strip_all_tags($title),
             'post_excerpt' => wp_strip_all_tags($excerpt),
             'post_status' => 'draft',
