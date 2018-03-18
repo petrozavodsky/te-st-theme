@@ -3,6 +3,7 @@
 class TeStTheme
 {
     public static $version = '1.0.0';
+private static $post_type = 'book';
 
     private function __construct()
     {
@@ -21,7 +22,7 @@ class TeStTheme
     public static function post_type_books()
     {
         register_post_type(
-            'book',
+            self::$post_type,
             [
                 'labels' =>
                     [
@@ -52,6 +53,15 @@ class TeStTheme
                 ]
             ]
         );
+
+        add_action('pre_get_posts', [__CLASS__,'pre_get_posts']);
+
+    }
+
+    public static function pre_get_posts($query){
+        if ( $query->is_front_page() && $query->is_main_query() ) {
+            $query->set( 'post_type', self::$post_type );
+        }
     }
 
     public static function add_viewport()
