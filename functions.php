@@ -21,18 +21,19 @@ class TeStTheme
 
 
         wp_enqueue_style(
+            'bootstrap',
+            'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+            [],
+            '4.0.0'
+        );
+
+        wp_enqueue_style(
             'TeStTheme-stylesheet',
             get_stylesheet_uri(),
             ['bootstrap'],
             self::$version
         );
 
-        wp_enqueue_style(
-            'bootstrap',
-            'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-            [],
-            '4.0.0'
-        );
     }
 
     public static function ajax_insert_posts()

@@ -20,7 +20,6 @@ gulp.task('theme-less', function () {
 
 gulp.task('theme_optimize', ['theme-less'], function () {
     return streamqueue({objectMode: true},
-        gulp.src('css/vendor/normalize.css'),
         gulp.src('css/vendor/wp-reset.css'),
         gulp.src('css/dest/compile-less.css')
     )
