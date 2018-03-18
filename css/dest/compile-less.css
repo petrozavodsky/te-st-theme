@@ -1,6 +1,17 @@
 * {
   box-sizing: border-box;
 }
+.meta__description {
+  width: 100%;
+  float: left;
+  color: #007bff;
+  padding: .8rem;
+}
+@media (max-width: 901px) {
+  .meta__description {
+    font-size: 2.5rem;
+  }
+}
 .site__header {
   border-bottom: .08rem solid #e5e5e5;
 }

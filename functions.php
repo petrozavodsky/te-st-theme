@@ -19,6 +19,20 @@ class TeStTheme
         add_action('init', [__CLASS__, 'post_type_books']);
         add_action('wp', [__CLASS__, 'ajax_form']);
 
+        add_action('TeStTheme__theme-main-before', [__CLASS__, 'meta_description']);
+    }
+
+    public function meta_description()
+    {
+        global $wp_query;
+
+        if (0 < $wp_query->post_count):
+            ?>
+            <h1 class="meta__description display-3 text-center">
+                <?php _e('List of books', 'TeStTheme'); ?>
+            </h1>
+        <?php
+        endif;
     }
 
     public static function post_type_books()
