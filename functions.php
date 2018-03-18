@@ -97,7 +97,9 @@ class TeStTheme
         $request = array_map('trim', $request);
         unset($request['action']);
 
-        $request = array_diff($request, []);
+        $request = array_filter($request, function ($elem){
+            return !empty($elem);
+        });
 
         $out = [
             'message' => __('Book saved in draft', 'TeStTheme')
