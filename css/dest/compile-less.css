@@ -4,11 +4,25 @@
 .site__header {
   border-bottom: .08rem solid #e5e5e5;
 }
+@media (max-width: 901px) {
+  .site__header h1,
+  .site__header h3,
+  .site__header h3 {
+    font-size: 2rem;
+  }
+}
 .site__main {
   padding: 1.2rem 0;
 }
 .site__main article .article__content {
   color: #777;
+}
+@media (max-width: 901px) {
+  .site__main article h1,
+  .site__main article h3,
+  .site__main article h3 {
+    font-size: 1.5rem;
+  }
 }
 .form__ajax-insert {
   width: 100%;
