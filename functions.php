@@ -3,7 +3,8 @@
 class TeStTheme
 {
     public static $version = '1.0.0';
-    private static $post_type = 'book';
+    public static $post_type = 'book';
+    public static $ajax_action = 'TeStTheme_insert_post';
 
     private function __construct()
     {
@@ -11,12 +12,12 @@ class TeStTheme
 
     public static function run()
     {
-        add_action('after_setup_theme', array(__CLASS__, 'after_setup_theme'));
         do_action('TeStTheme_setup');
-        add_action('wp_ajax_TeStTheme_insert_post', [__CLASS__, 'ajax_insert_posts']);
+        add_action('wp_ajax_' . self::$ajax_action, [__CLASS__, 'ajax_insert_posts']);
         add_action('wp_enqueue_scripts', [__CLASS__, 'add_js_css']);
         add_action('wp_head', [__CLASS__, 'add_viewport']);
         add_action('init', [__CLASS__, 'post_type_books']);
+        add_action('TeStTheme__theme-content-area-before', [__CLASS__, 'ajax_form']);
     }
 
     public static function post_type_books()
@@ -56,7 +57,6 @@ class TeStTheme
 
 
     }
-
 
 
     public static function pre_get_posts($query)
@@ -99,10 +99,34 @@ class TeStTheme
     }
 
 
-    public static function after_setup_theme()
+    public static function ajax_form()
     {
+        $action = add_query_arg(['action' => self::$ajax_action], admin_url('wp-admin.php'));
+        ?>
 
+        <form class="form_main" action="<?php echo $action; ?>">
 
+            <div class="md-form">
+                <label for="title">
+                    <?php _e('Title', 'TeStTheme'); ?>
+                    <input name="title" class="form-control" type="text" placeholder="<?php _e('Enter title', 'TeStTheme'); ?>"/>
+                </label>
+            </div>
+
+            <div class="md-form">
+                <label for="description">
+                    <?php _e('Description', 'TeStTheme'); ?>
+                    <textarea name="description" class="form-control md-textarea"></textarea>
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <?php _e('Submit', 'TeStTheme'); ?>
+            </button>
+
+        </form>
+
+        <?php
     }
 
 }
