@@ -43,7 +43,7 @@ class TeStTheme
 
     public static function user_restriction()
     {
-        if (true != DOING_AJAX &&  !current_user_can('unfiltered_html')) {
+        if (true != DOING_AJAX && !current_user_can('unfiltered_html')) {
             wp_redirect(site_url('/'));
             exit;
         }
@@ -142,6 +142,10 @@ class TeStTheme
             return !empty($elem);
         });
 
+        if (!wp_verify_nonce($_POST['books_ajax_form'], __FILE__)) {
+            wp_die(__("Cheatin&#8217; uh?", 'TeStTheme'));
+        }
+
         $out = [
             'message' => __('Book saved in draft', 'TeStTheme')
         ];
@@ -201,7 +205,7 @@ class TeStTheme
         if (is_user_logged_in()) {
             wp_enqueue_script(
                 'TeStTheme-ajax-insert-form',
-                get_template_directory_uri() . '/js/form-script.js',
+                get_template_directory_uri() . '/js/form-script.min.js',
                 ['jquery'],
                 self::$version,
                 true
@@ -238,7 +242,7 @@ class TeStTheme
                         <div class="form__ajax-insert-button-preload loader"></div>
 
                     </div>
-
+                    <input type="hidden" name="books_ajax_form" value="<?php echo wp_create_nonce(__FILE__); ?>"/>
                 </form>
 
                 <?php

@@ -31,7 +31,7 @@ jQuery(function ($) {
                         form_elem.prepend(json.data.message);
                     },
                     complete: function (jqXHR, status) {
-
+                        form_elem.find('input, textarea').not('[type="hidden"]').val('');
                         form_elem.find('.loader').removeClass('active');
                     }
 
