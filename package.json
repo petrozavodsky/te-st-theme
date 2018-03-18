@@ -25,6 +25,7 @@
     "gulp-sourcemaps": "^2.6.1",
     "gulp-svgo": "^1.2.5",
     "gulp-uglify": "^3.0.0",
+    "gulp-wp-pot": "^2.2.0",
     "imagemin-jpeg-recompress": "^5.1.0",
     "imagemin-pngquant": "^5.0.1",
     "streamqueue": "^1.1.1",

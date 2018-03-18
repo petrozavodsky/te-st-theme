@@ -21,6 +21,7 @@ class TeStTheme
         add_action('TeStTheme__theme-main-before', [__CLASS__, 'meta_description']);
         add_action('admin_init', [__CLASS__, 'user_restriction'], 1);
         add_action('wp', [__CLASS__, 'hide_admin_bar']);
+        add_action('after_setup_theme', [__CLASS__, 'theme_textdomain']);
 
         add_action('TeStTheme__theme-register-link', function () {
             if (!is_user_logged_in()) {
@@ -32,6 +33,12 @@ class TeStTheme
             }
         });
     }
+
+    public static function theme_textdomain()
+    {
+        load_theme_textdomain('TeStTheme');
+    }
+
 
     public static function hide_admin_bar()
     {

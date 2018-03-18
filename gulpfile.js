@@ -8,6 +8,21 @@ const gulp = require('gulp'),
     imageminPngquant = require('imagemin-pngquant'),
     del = require('del');
 
+
+gulp.task('i18n', function () {
+    return gulp.src(plugin_src.lang.src)
+        .pipe(plugins.sort())
+        .pipe(plugins.wpPot({
+            package: path.basename(__dirname)
+        }))
+        .pipe(plugins.rename({
+            basename: path.basename(__dirname),
+            extname: ".pot"
+        }))
+        .pipe(gulp.dest(plugin_src.lang.dest));
+
+});
+
 gulp.task('theme-less', function () {
     return gulp.src('less/**/*.less')
         .pipe(plugins.plumber())
