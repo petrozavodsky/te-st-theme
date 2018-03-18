@@ -96,8 +96,40 @@ class TeStTheme
         $request = $_REQUEST;
         $request = array_map('trim', $request);
         unset($request['action']);
+
+        $request = array_diff($request, []);
+
+        $out = [
+            'message' => __('Book saved in draft', 'TeStTheme')
+        ];
+
+        if (!in_array('title', array_keys($request))) {
+            $out['message'] = __('Enter title', 'TeStTheme');
+
+            wp_send_json_error(self::ajax_insert_posts_alerts_helper($out, 'info'));
+        }
+
+        if (!in_array('description', array_keys($request))) {
+            $out['message'] = __('Enter description pls.', 'TeStTheme');
+            wp_send_json_error(self::ajax_insert_posts_alerts_helper($out, 'warning'));
+        }
+
+
+        wp_send_json_success(self::ajax_insert_posts_alerts_helper($out, 'success'));
+
     }
 
+    public static function ajax_insert_posts_alerts_helper($array, $type = 'warning')
+    {
+
+        if (array_key_exists('message', $array)) {
+            $array['message'] = trim("
+            <div class='alert alert-{$type}' role='alert'>{$array['message']}</div>
+            ");
+        }
+
+        return $array;
+    }
 
     public static function ajax_form()
     {
