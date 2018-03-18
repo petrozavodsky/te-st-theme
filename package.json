@@ -1,5 +1,5 @@
 {
-  "name": "te-st-theme",
+  "name": "TeStTheme",
   "version": "1.0.0",
   "description": "WordPress theme gulp tasks",
   "main": "gulpfile.js",
