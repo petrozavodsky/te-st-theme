@@ -10,3 +10,4 @@
 .idea/**/uiDesigner.xml
 .idea/sonarlint
 node_modules
+.DS_Store
