@@ -3,7 +3,7 @@
 class TeStTheme
 {
     public static $version = '1.0.0';
-private static $post_type = 'book';
+    private static $post_type = 'book';
 
     private function __construct()
     {
@@ -38,13 +38,11 @@ private static $post_type = 'book';
                         'menu_name' => __('Books', 'TeStTheme')
                     ],
                 'menu_position' => 5,
-                'menu_icon'=>'dashicons-book',
+                'menu_icon' => 'dashicons-book',
                 'hierarchical' => false,
-                'public' => true,
-                'publicly_queryable' => true,
+                'public' => false,
                 'show_ui' => true,
                 'show_in_menu' => true,
-                'query_var' => true,
                 'rewrite' => false,
                 'supports' => [
                     'title',
@@ -54,13 +52,17 @@ private static $post_type = 'book';
             ]
         );
 
-        add_action('pre_get_posts', [__CLASS__,'pre_get_posts']);
+        add_action('pre_get_posts', [__CLASS__, 'pre_get_posts']);
+
 
     }
 
-    public static function pre_get_posts($query){
-        if ( $query->is_front_page() && $query->is_main_query() ) {
-            $query->set( 'post_type', self::$post_type );
+
+
+    public static function pre_get_posts($query)
+    {
+        if ($query->is_front_page() && $query->is_main_query()) {
+            $query->set('post_type', self::$post_type);
         }
     }
 
@@ -75,7 +77,7 @@ private static $post_type = 'book';
 
         wp_enqueue_style(
             'bootstrap',
-            'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+            get_template_directory_uri() . '/css/vendor/bootstrap/css/bootstrap.min.css',
             [],
             '4.0.0'
         );
