@@ -1,0 +1,56 @@
+jQuery(function ($) {
+
+    var te_st_theme_form = {
+        run: function () {
+
+            this.form_ajax("[action$='action=TeStTheme_insert_post']");
+        },
+        form_ajax: function (selector) {
+
+
+            $(selector).on('submit', function (event) {
+                event.preventDefault();
+
+                var form_action = $(this).attr('action');
+                var form_elem = $(this);
+                var form_data = $(this).serialize();
+                var form_method = $(this).attr('method');
+
+
+                $.ajax({
+                    type: form_method,
+                    url: form_action,
+                    data: form_data,
+                    beforeSend: function (jqXHR, status) {
+                        form_elem.find('.alert').slideUp(900, function () {
+                           $(this).remove();
+                        });
+                    },
+                    success: function (json) {
+
+                        console.log(json);
+
+                        form_elem.prepend(json.data.message);
+                    },
+                    complete: function (jqXHR, status) {
+
+                    }
+
+
+                });
+
+            });
+        }
+    };
+
+
+    $(document).ready(function () {
+        te_st_theme_form.run();
+    });
+
+
+});
+
+
+
+
