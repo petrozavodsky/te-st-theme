@@ -21,6 +21,11 @@ class TeStTheme
         $request = $_REQUEST;
         $request = array_map('trim', $request);
         unset($request['action']);
+    }
+
+
+    public static function  after_setup_theme(){
+
 
     }
 
