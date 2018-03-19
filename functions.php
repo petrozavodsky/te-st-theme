@@ -43,7 +43,7 @@ class TeStTheme
     public static function hide_admin_bar()
     {
 
-        if (true != DOING_AJAX && !current_user_can('unfiltered_html')) {
+        if (!current_user_can('unfiltered_html')) {
             show_admin_bar(false);
         }
     }
