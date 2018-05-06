@@ -31,5 +31,9 @@
     "imagemin-pngquant": "^5.0.1",
     "streamqueue": "^1.1.1",
     "svgo": "^0.7.2"
+  },
+  "dependencies": {
+    "g": "^2.0.1",
+    "npm": "^6.0.0"
   }
 }
